@@ -57,26 +57,24 @@ async function connectOBS() {
 
 connectOBS();
 
-// Example: Map pad presses to OBS scene names
+// map pad numbers to OBS scene selections
 const padToScene = {
-  48: 'LIVE VIEW - Main', // Pad 1
-  49: 'LCD LOOP', // Pad 2
-  50: 'EPAPER LOOP', // Pad 3
-  51: 'OC Drone', // Pad 4
+  48: 'LIVE VIEW - Main', 
+  49: 'LCD LOOP', 
+  50: 'EPAPER LOOP',
+  51: 'OC Drone', 
   44: 'BACK BAY NIGHT TL',
   45: 'HUNTINGTON LONG TL',
-  46: 'LA SUNSET TL 2',
+  46: 'PIER TL',
   47: 'Back Bay Drive TL',
-  40: 'HUNTINGTON TL',
-  41: 'GO PLAY WITH DASH 1',
-  42: 'SUNSET TL',
-  43: 'WATER DOGS',
+  40: 'ANGELES CREST TL',
+  41: 'GO PLAY WITH DASH 2',
+  42: 'HYPE TRAIN BUMPER',
+  43: 'NIGHT WAVES BUMPER',
   36: 'SUNSET WAVES',
   37: 'WEATHER STAR',
   38: 'TRIANGLE ANIMATION',
-  39: 'THANK YOU 2'
-
-  // Add more mappings as needed
+  39: 'THANK YOU 2'  
 };
 
 input.on('message', async (deltaTime, message) => {
@@ -87,7 +85,7 @@ input.on('message', async (deltaTime, message) => {
     const pad = noteToPad[message[1]] || `Unknown (${message[1]})`;
     console.log(`Pad pressed: ${pad} (note ${message[1]})`);
     console.log('------------------------------');
-    // If this pad is mapped to a scene, trigger the scene change
+    // if pad is mapped to a scene, trigger the scene change
     if (padToScene[message[1]]) {
       try {
         await obs.call('SetCurrentProgramScene', { sceneName: padToScene[message[1]] });
@@ -97,9 +95,9 @@ input.on('message', async (deltaTime, message) => {
       }
     }
   }
-  // Optionally, handle note off if needed
+  // handle note-off events here if necessary
 });
 
 console.log('Listening for MIDI messages. Press Ctrl+C to exit.');
+console.log("--------------------------------------------------")
 
-// To stop, press Ctrl+C
